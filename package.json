@@ -2,7 +2,7 @@
   "name": "hebo-notification-handler-sns",
   "description": "Notification Handler implementation for hebo-js that uses AWS SNS",
   "version": "1.0.0",
-  "author": "Steve Caldwell <scaldwell@gmail.com> ()",
+  "author": "Steve Caldwell <scaldwell@gmail.com>",
   "ava": {
     "failFast": true,
     "verbose": true
@@ -17,7 +17,7 @@
     ]
   },
   "contributors": [
-    "Steve Caldwell <scaldwell@gmail.com> ()"
+    "Steve Caldwell <scaldwell@gmail.com>"
   ],
   "dependencies": {},
   "devDependencies": {
@@ -87,7 +87,8 @@
   "prettier": {
     "singleQuote": true,
     "bracketSpacing": true,
-    "trailingComma": "none"
+    "trailingComma": "all",
+    "tabWidth": 4
   },
   "remarkConfig": {
     "plugins": [
@@ -108,9 +109,21 @@
   },
   "xo": {
     "prettier": true,
-    "space": true,
+    "space": 4,
     "extends": [
       "xo-lass"
-    ]
+    ],
+    "parserOptions": {
+      "sourceType": "module"
+    },
+    "rules": {
+      "max-len": [
+        "error",
+        {
+          "code": 80,
+          "ignoreUrls": true
+        }
+      ]
+    }
   }
 }
