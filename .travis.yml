@@ -1,8 +1,15 @@
 language: node_js
 node_js:
-  - '8'
-  - '10'
-script:
-  npm run test-coverage
-after_success:
-  npm run coverage
+- '8'
+- '10'
+script: npm run test-coverage
+after_success: npm run coverage
+deploy:
+  provider: npm
+  email: scaldwell@gmail.com
+  api_key:
+    secure: uwfOMFaff0cxFDdQjw1sYakAh8uo9D5wYmBsqSuxbgpk9ewkvYHQVFnprSXWaoV9wvp9ZeyvUp1XjBUneVMftsE2yk3469eB7czg9Y4uZDMA4OYK1TqIvfWDY+11kBEgbgLwJ+OXFnEZBUerJK4SIYymzdAzjMQ7RTMK5daHGbhX4BmTs2oYtiE1SZ+DD+xseLqdUjRDOapjZHVyqv+MuQG9l9gZVKo0U79LKg0xYMB6Yv8qrnsLMxZOUSwr9/wAozysgFFJWdQ0qRaiVdNDddAx4FbErUkAh5FRAqnj+od5VWnqcDH48kMnDKtzTKdmWXtXC0MV1832nSdDLSDW0mqxTBUWxQqmZkqxK8jM6zAYsiAM0GmOwMzOghOO/5ZDQQ41tlhyo2WXPuJDCHYveiUexZwCYYoVYmK0lgHN8867guYierM+4oDQzbrubl+OxnCQiykulT8AQbvGyYmVPvuGCZ5mEM0iE0RsxBHMg0DrIAJYd1wstzns39WGKwD6rpPafo5i7m1vEw9zuWB5yFY9yhKc5Ho2GltIsFlwFk46ivoLKZ5HZ8s8L0GI9w2hWFbG38z1ownhQdOtGWpI7fRLQp1Fd13fuztzO17cZ6EGanJoK4CRM2QIAr/tB59Zugb4I6Wy8qPIHB6WbThEnI5QsYSgLejA+SQacfzH4TM=
+  on:
+    tags: true
+    repo: stevecaldwell77/hebo-notification-handler-sns
+    node: '8'
