@@ -1,14 +1,20 @@
 const assert = require('assert');
-const { isPlainObject } = require('lodash');
+const isFunction = require('lodash/isFunction');
+const isPlainObject = require('lodash/isPlainObject');
 const autoBind = require('auto-bind');
 
 class NotificationHandlerSns {
-    constructor({ snsClient, topicArns = {} } = {}) {
+    constructor({ snsClient, topicArns } = {}) {
         assert(snsClient, 'NotificationHandlerSns: snsClient required');
+        assert(
+            isFunction(snsClient.publish),
+            'NotificationHandlerSns: snsClient must provide publish()',
+        );
+
         assert(topicArns, 'NotificationHandlerSns: topicArns required');
         assert(
             isPlainObject(topicArns),
-            'NotificationHandlerSns: topicArns must be plain object',
+            'NotificationHandlerSns: topicArns must be a plain object',
         );
         assert(
             topicArns.invalidEventsFound,
