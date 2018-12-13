@@ -144,10 +144,12 @@ const getMessages = async ({
 
     // Delete the pulled messages from the queue
     const deleteMessage = msg =>
-        sqsClient.deleteMessage({
-            QueueUrl: sqsQueueUrl,
-            ReceiptHandle: msg.ReceiptHandle,
-        });
+        sqsClient
+            .deleteMessage({
+                QueueUrl: sqsQueueUrl,
+                ReceiptHandle: msg.ReceiptHandle,
+            })
+            .promise();
     await Promise.all(messages.map(deleteMessage));
 
     // Store the extracted message
