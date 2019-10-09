@@ -46,7 +46,7 @@
     "uuid": "^3.3.2"
   },
   "engines": {
-    "node": ">=8.3"
+    "node": ">=8.16.1"
   },
   "homepage": "https://github.com/stevecaldwell77/hebo-notification-handler-sns",
   "husky": {
