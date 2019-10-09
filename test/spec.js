@@ -11,9 +11,9 @@ const shortid = require('shortid');
 const delay = require('delay');
 const { sortBy } = require('lodash');
 const { validateNotificationHandler } = require('hebo-validation');
-const NotificationHandlerSns = require('..');
 const MockSqsClient = require('./helpers/mock-sqs');
 const MockSnsClient = require('./helpers/mock-sns');
+const NotificationHandlerSns = require('..');
 
 const isLive = Boolean(process.env.HEBO_LIVE_SNS_TEST);
 
@@ -30,13 +30,21 @@ const getMockClients = () => {
 
 const getClients = () => (isLive ? getLiveClients() : getMockClients());
 
+const generateTopicName = () => `hebotest-${shortid.generate()}`;
+
+const getTopicArn = response => response.TopicArn;
+
+const getBodyMessage = msg => {
+    const body = JSON.parse(msg.Body);
+    const message = body.Message;
+    return JSON.parse(message);
+};
+
 const setupSns = async ({ snsClient }) => {
-    const generateName = () => `hebotest-${shortid.generate()}`;
     const createTopic = () =>
-        snsClient.createTopic({ Name: generateName() }).promise();
+        snsClient.createTopic({ Name: generateTopicName() }).promise();
     const responses = await Promise.all([createTopic(), createTopic()]);
-    const getArn = response => response.TopicArn;
-    const [invalidEventsFoundArn, eventWrittenArn] = responses.map(getArn);
+    const [invalidEventsFoundArn, eventWrittenArn] = responses.map(getTopicArn);
     return { invalidEventsFoundArn, eventWrittenArn };
 };
 
@@ -153,8 +161,6 @@ const getMessages = async ({
     await Promise.all(messages.map(deleteMessage));
 
     // Store the extracted message
-    const getBody = msg => JSON.parse(msg.Body);
-    const getBodyMessage = msg => JSON.parse(getBody(msg).Message);
     foundSoFar.push(...messages.map(getBodyMessage));
 
     // Call again
