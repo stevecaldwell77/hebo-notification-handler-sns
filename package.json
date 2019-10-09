@@ -1,7 +1,7 @@
 {
   "name": "hebo-notification-handler-sns",
   "description": "Notification Handler implementation for hebo-js that uses AWS SNS",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": "Steve Caldwell <scaldwell@gmail.com>",
   "ava": {
     "failFast": true,
